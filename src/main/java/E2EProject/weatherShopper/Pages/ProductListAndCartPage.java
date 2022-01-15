@@ -64,6 +64,7 @@ public class ProductListAndCartPage extends ProductListAndCartPageLocators {
 
 		List<Integer> sortedProductPrices = new ArrayList<>();
 		List<WebElement> productPrices = driver.findElements(By.xpath(pricesOfSPF30));
+		productPrices.addAll(driver.findElements(By.xpath(pricesOfspf30)));
 		for (int i = 0; i < productPrices.size(); i++) {
 			sortedProductPrices.add(Integer.valueOf(productPrices.get(i).getText().replaceAll("\\D+", "")));
 
