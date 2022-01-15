@@ -1,4 +1,5 @@
 package Project.E2EProject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,59 +23,47 @@ import E2EProject.weatherShopper.Pages.PaymentAndPurchasePage;
 import E2EProject.weatherShopper.Pages.ProductListAndCartPage;
 
 public class productPurchaseFlow {
-	
-public static WebDriver driver; 
-HomePage homePage= null;
-ProductListAndCartPage productListAndCartPage = null;
-PaymentAndPurchasePage paymentAndPurchasePage = null;
 
+	public static WebDriver driver;
+	HomePage homePage = null;
+	ProductListAndCartPage productListAndCartPage = null;
+	PaymentAndPurchasePage paymentAndPurchasePage = null;
 
-@Parameters({"browser"})
+	@Parameters({ "browser" })
 	@BeforeTest
 	public void beforeTest(String browser) {
 
-		  // If the browser is Firefox, then do this
-   	System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver_win32\\chromedriver.exe");
-   	System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\geckodriver.exe");
-   	//System.setProperty("webdriver.ie.driver", "C:\\Selenium\\IEDriverServer.exe");
-   	
-		  if(browser.equalsIgnoreCase("firefox")) {
-			 
-		//Initializing the firefox driver (Gecko)
-			  driver = new FirefoxDriver();	  
+		System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\geckodriver.exe");
 
-		  }else if (browser.equalsIgnoreCase("chrome")) { 
+		if (browser.equalsIgnoreCase("firefox")) {
 
-			  //Initialize the chrome driver
+			// Initializing the firefox driver (Gecko)
+			driver = new FirefoxDriver();
 
-			  driver = new ChromeDriver();
+		} else if (browser.equalsIgnoreCase("chrome")) {
 
-		  }
-		  homePage = new HomePage(driver);
-		   productListAndCartPage = new ProductListAndCartPage(driver);
-		   paymentAndPurchasePage = new PaymentAndPurchasePage(driver);
+			// Initialize the chrome driver
+			driver = new ChromeDriver();
+
+		}
+		homePage = new HomePage(driver);
+		productListAndCartPage = new ProductListAndCartPage(driver);
+		paymentAndPurchasePage = new PaymentAndPurchasePage(driver);
 		driver.get("https://weathershopper.pythonanywhere.com/");
 	}
 
-@Test
-public void purchaseFlow() throws InterruptedException {
-	System.out.println("Inside productlist page");
-	homePage.chooseTypeOfProduct();
-	paymentAndPurchasePage.addToCart();
-	paymentAndPurchasePage.paymentAndPurchase();
-	
-}
-	
-	
-	
-	
+	@Test
+	public void purchaseFlow() throws InterruptedException {
+		System.out.println("Inside productlist page");
+		homePage.chooseTypeOfProduct();
+		paymentAndPurchasePage.addToCart();
+		paymentAndPurchasePage.paymentAndPurchase();
+	}
+
 	@AfterClass
-	public  void browserclose()
-	{
-		driver.quit();
+	public void browserclose() {
 		driver.close();
 	}
-	
-}
-	
 
+}
